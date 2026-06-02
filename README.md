@@ -1,6 +1,6 @@
 <h1>ExpNo 1 :Developing AI Agent with PEAS Description</h1>
-<h3>Name : geetha priyan </h3>
-<h3>Register Number :  212224230074 </h3>
+<h3>Name: ALDRIN S </h3>
+<h3>Register Number: 212223240005 </h3>
 
 
 <h3>AIM:</h3>
@@ -41,83 +41,59 @@
 <h3>STEP 5:</h3>
 <p>Measure the performance parameters: For each treatment performance incremented, for each movement performance decremented</p>
 
-<h3>Program : </h3>
-
-```python
-
+### PROGRAM
+```
 import random
 import time
-
-# Define rooms
-room_A = (0, 0)
-room_B = (1, 0)
-
-# Agent class
-class Agent:
-    def __init__(self, program):
-        self.alive = True
-        self.performance = 0
-        self.program = program
-        self.location = random.choice([room_A, room_B])
-
-# Agent decision logic using a table
-def doctor_program(percept):
-    location, status = percept
-    if status == "unhealthy":
-        return "treat"
-    return "Right" if location == room_A else "Left"
-
-# Environment class
-class DoctorEnvironment:
-    def __init__(self):
-        self.status = {
-            room_A: random.choice(["healthy", "unhealthy"]),
-            room_B: random.choice(["healthy", "unhealthy"]),
-        }
-        self.agent = Agent(doctor_program)
-
-    def percept(self):
-        return self.agent.location, self.status[self.agent.location]
-
-    def execute_action(self, action):
-        loc = self.agent.location
-        if action == "Right":
-            self.agent.location = room_B
-            self.agent.performance -= 1
-        elif action == "Left":
-            self.agent.location = room_A
-            self.agent.performance -= 1
-        elif action == "treat":
-            temp = float(input(f"Enter temperature for patient in {loc}: "))
-            if temp > 98.5:
-                print("Prescribed: Paracetamol and antibiotic.")
-                self.agent.performance += 10
-            else:
-                print("No medicine needed.")
-            self.status[loc] = "healthy"
-
-    def run(self, steps=2):
-        for i in range(steps):
-            print(f"\nStep {i+1}")
-            percept = self.percept()
-            action = self.agent.program(percept)
-            self.execute_action(action)
-            print(f"Room Status: {self.status}")
-            print(f"Agent Location: {self.agent.location}")
-            print(f"Performance: {self.agent.performance}")
+class HealthMonitoringAgent:
+    def __init__(self, patient_data, sensors, actuators):
+        self.patient_data = patient_data
+        self.sensors = sensors
+        self.actuators = actuators
+        print(f"Monitoring health for patient: {self.patient_data['name']}")
+    def monitor_health(self):
+        while True:
+            current_health_state = self.sensors.get_health_state()
+            action = self.choose_action(current_health_state)
+            print("Current Health State:", current_health_state)
+            self.actuators.perform_action(action)
+            if action == "No specific action needed":
+                print("Patient is stable. Monitoring stopped.")
+                break
             time.sleep(1)
+    def choose_action(self, current_health_state):
+        if current_health_state['heart_rate'] > 120:
+            return "Alert healthcare provider: High heart rate detected"
+        elif current_health_state['blood_pressure'] > 140:
+            return "Alert healthcare provider: High blood pressure detected"
+        elif current_health_state['temperature'] > 38:
+            return "Recommend rest and monitor temperature"
+        else:
+            return "No specific action needed"
+class HealthSensors:
+    def get_health_state(self):
+        return {
+            'heart_rate': random.randint(60, 150),
+            'blood_pressure': random.randint(90, 160),
+            'temperature': round(random.uniform(36.0, 38.5), 1)
+        }
+class HealthActuators:
+    def perform_action(self, action):
+        print("Action:", action)
+if __name__ == "__main__":
+    patient_data = {
+        'patient_id': 123,
+        'name': 'John Doe',
+        'age': 35
+    }
+    sensors = HealthSensors()
+    actuators = HealthActuators()
+    agent = HealthMonitoringAgent(patient_data, sensors, actuators)
+    agent.monitor_health()
+ ```
+    
+<h3>OUTPUT</h3>
+<img width="802" height="91" alt="image" src="https://github.com/user-attachments/assets/3d999d63-ddcb-4ebb-817b-97eee99a66af" />
 
-# Run the simulation
-env = DoctorEnvironment()
-print("Initial Room Status:", env.status)
-print("Starting Location:", env.agent.location)
-env.run()
-
-```
-
-<h3>OUTPUT : </h3>
-
-<img width="1811" height="563" alt="image" src="https://github.com/user-attachments/assets/4a8c9f0b-4396-47cb-b02f-d4591d015f13" />
-
-<h3>RESULT : </h3>
-<p>Thus the Developing AI Agent with PEAS Description was implemented using python programming.</p>
+<h3>RESULT</h3>
+Hence, the solution for the given AI problem is found.
