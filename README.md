@@ -1,6 +1,6 @@
 <h1>ExpNo 1 :Developing AI Agent with PEAS Description</h1>
-<h3>Name : geetha priyan </h3>
-<h3>Register Number :  212224230074 </h3>
+<h3>Name : ALDRIN S </h3>
+<h3>Register Number :  212223240005 </h3>
 
 
 <h3>AIM:</h3>
